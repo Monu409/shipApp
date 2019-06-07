@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="example.javatpoint.com.optionmenu.MainActivity">
+
+    <item
+        android:id="@+id/profile"
+        android:title="Item 2"
+        app:showAsAction="always"
+        android:icon="@drawable/profile_img"/>
+
+    <item
+        android:id="@+id/my_cart"
+        android:title="Item 1"
+        app:showAsAction="always"
+        android:icon="@drawable/shopping_cart"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Item 2"
+        app:showAsAction="always"
+        android:icon="@drawable/logout_icn"/>
+</menu>
