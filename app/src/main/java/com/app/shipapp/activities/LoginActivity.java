@@ -131,9 +131,11 @@ public class LoginActivity extends AppCompatActivity {
                                 String token = response.getString("token");
                                 String name = response.getString("name");
                                 String id = response.getString("id");
+                                String email = response.getString("email");
                                 ConstantMethod.setStringPreference("user_token",token,LoginActivity.this);
                                 ConstantMethod.setStringPreference("user_name",name,LoginActivity.this);
                                 ConstantMethod.setStringPreference("user_id",id,LoginActivity.this);
+                                ConstantMethod.setStringPreference("user_email",email,LoginActivity.this);
                                 ConstantMethod.setStringPreference("login_status","login",LoginActivity.this);
                                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                             }

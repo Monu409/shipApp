@@ -7,4 +7,5 @@ public interface AppAPis {
     String SHIP_LIST = BASE_URL+"ship?token=";
     String SEARCH_SHIP_LIST = BASE_URL+"search_ship?token=";
     String USER_PROFILE = BASE_URL+"profile?token=";
+    String SAVE_ORDER = BASE_URL+"checkout?token=";
 }
