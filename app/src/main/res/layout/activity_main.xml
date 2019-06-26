@@ -9,22 +9,60 @@
     <LinearLayout
         android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
         android:orientation="horizontal"
         android:weightSum="10">
-        <EditText
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:id="@+id/searc_edt"
-            android:hint="Search here...."/>
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rect_view"
+                android:id="@+id/ship_sedt"
+                android:hint="Ship name"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rect_view"
+                android:id="@+id/imo_sedt"
+                android:hint="Imo number"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rect_view"
+                android:id="@+id/call_sedt"
+                android:hint="Call sign"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rect_view"
+                android:id="@+id/mmsi_sedt"
+                android:hint="MMSI"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
         <ImageView
             android:id="@+id/search_img"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="2"
             android:src="@drawable/search_icon"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
 

@@ -4,6 +4,12 @@
     tools:context="example.javatpoint.com.optionmenu.MainActivity">
 
     <item
+        android:id="@+id/myorders"
+        android:title="Item 2"
+        app:showAsAction="always"
+        android:icon="@drawable/shopping"/>
+
+    <item
         android:id="@+id/profile"
         android:title="Item 2"
         app:showAsAction="always"

@@ -12,13 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 
+import com.app.shipapp.activities.CheckoutActivity;
 import com.app.shipapp.modals.SearchModal;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ConstantMethod {
@@ -28,7 +34,7 @@ public class ConstantMethod {
 
     public static void showProgressBar(Context context){
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Please wiat");
+        progressDialog.setMessage("Please wait");
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
@@ -82,36 +88,32 @@ public class ConstantMethod {
         return preferences.getString(key, "");
     }
 
-    public static void saveUsers(Context context, List<SearchModal> users) {
-        SharedPreferences settings;
-        SharedPreferences.Editor editor;
-        settings = context.getSharedPreferences(PREFS_TAG, Context.MODE_PRIVATE);
-        editor = settings.edit();
+    public static void saveArrayList(Context context, List<SearchModal> list){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
         Gson gson = new Gson();
-        String jsonUsers = gson.toJson(users);
-        editor.putString(OBJECT_TAG, jsonUsers);
-        editor.commit();
+        String json = gson.toJson(list);
+        editor.putString("save_ships", json);
+        editor.apply();
     }
 
-    public static List<SearchModal> getUsers(Context context) {
-        SharedPreferences settings;
-        List<SearchModal> users;
-
-        settings = context.getSharedPreferences(PREFS_TAG,
-                Context.MODE_PRIVATE);
-
-        if (settings.contains(OBJECT_TAG)) {
-            String jsonUsers = settings.getString(OBJECT_TAG, null);
-            Gson gson = new Gson();
-            SearchModal[] userItems = gson.fromJson(jsonUsers,
-                    SearchModal[].class);
-
-            users = Arrays.asList(userItems);
-            users= new ArrayList<>(users);
-        } else
-            return null;
-
-        return users;
+    public static List<SearchModal> getArrayList(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = prefs.getString("save_ships", null);
+        Type type = new TypeToken<List<SearchModal>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 
+    public static void emptyCart(Context context){
+        List<SearchModal> searchModals = ConstantMethod.getArrayList(context);
+        searchModals.clear();
+        ConstantMethod.saveArrayList(context, searchModals);
+    }
+
+    public static String currentDate(){
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        return df.format(c);
+    }
 }

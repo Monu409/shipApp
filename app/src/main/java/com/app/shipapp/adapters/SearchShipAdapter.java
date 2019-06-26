@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.app.shipapp.R;
 import com.app.shipapp.activities.SingleShipActivity;
 import com.app.shipapp.app_utils.ConstantMethod;
 import com.app.shipapp.modals.SearchModal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchShipAdapter extends RecyclerView.Adapter<SearchShipAdapter.SrchShpHolder> {
@@ -24,11 +24,13 @@ public class SearchShipAdapter extends RecyclerView.Adapter<SearchShipAdapter.Sr
     private LayoutInflater layoutInflater;
     private Context context;
     private String activityName;
+    private CrossClick crossClick;
 
-    public SearchShipAdapter(Context context, List<SearchModal> searchModals,String activityName){
+    public SearchShipAdapter(Context context, List<SearchModal> searchModals,String activityName,CrossClick crossClick){
         this.searchModals = searchModals;
         this.context = context;
         this.activityName = activityName;
+        this.crossClick = crossClick;
         layoutInflater = LayoutInflater.from(context);
     }
     @NonNull
@@ -44,10 +46,8 @@ public class SearchShipAdapter extends RecyclerView.Adapter<SearchShipAdapter.Sr
             srchShpHolder.deleteImg.setVisibility(View.VISIBLE);
             srchShpHolder.selectShip.setVisibility(View.INVISIBLE);
             srchShpHolder.deleteImg.setOnClickListener(v->{
-                SearchModal searchModal = searchModals.get(i);
-                searchModals.remove(searchModal);
+                crossClick.onClick(i);
                 notifyDataSetChanged();
-                ConstantMethod.saveUsers(context,searchModals);
             });
         }
         else if(activityName.equals("search")){
@@ -58,7 +58,24 @@ public class SearchShipAdapter extends RecyclerView.Adapter<SearchShipAdapter.Sr
         srchShpHolder.cost.setText(searchModals.get(i).getCost());
         srchShpHolder.selectShip.setOnCheckedChangeListener((buttonView,isChecked)->{
             if(isChecked){
-                ConstantMethod.saveUsers(context,searchModals);
+                List<SearchModal> searchModalsPref = ConstantMethod.getArrayList(context);
+                if(searchModalsPref==null){
+                    searchModalsPref = new ArrayList<>();
+                    searchModalsPref.add(searchModals.get(i));
+                    ConstantMethod.saveArrayList(context, searchModalsPref);
+                }else {
+                    searchModalsPref.add(searchModals.get(i));
+                    ConstantMethod.saveArrayList(context, searchModalsPref);
+                }
+            }
+            else {
+                List<SearchModal> searchModalsPref = ConstantMethod.getArrayList(context);
+                for(int i1 = 0 ; i1 < searchModalsPref.size() ; i1++){
+                    if(searchModals.get(i).getShipName().equalsIgnoreCase(searchModalsPref.get(i1).getShipName())){
+                        searchModalsPref.remove(i1);
+                        ConstantMethod.saveArrayList(context,searchModalsPref);
+                    }
+                }
             }
         });
         srchShpHolder.fullView.setOnClickListener(v->{
@@ -87,5 +104,19 @@ public class SearchShipAdapter extends RecyclerView.Adapter<SearchShipAdapter.Sr
             deleteImg = itemView.findViewById(R.id.delete_ship);
 
         }
+    }
+
+    public interface CrossClick{
+        void onClick(int position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1037430578955",
+    "firebase_url": "https://shipapp-ed4b6.firebaseio.com",
+    "project_id": "shipapp-ed4b6",
+    "storage_bucket": "shipapp-ed4b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037430578955:android:8128ff3eba2124d8",
+        "android_client_info": {
+          "package_name": "com.app.shipapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037430578955-emcmfnbjspud26cph5cqro4i23bpt4k0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.shipapp",
+            "certificate_hash": "51da89b4c0b86fa3b2235a3a17f7c2ab40178e53"
+          }
+        },
+        {
+          "client_id": "1037430578955-b3ajmf7nq6fuhqtl05784psnherae3jr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTPEP8ZwgmrBhD4rSxOxtSwRcOgtplQ5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037430578955-b3ajmf7nq6fuhqtl05784psnherae3jr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

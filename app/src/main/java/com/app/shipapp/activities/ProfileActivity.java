@@ -41,11 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         saveProfile.setAlpha(0.3f);
         getUserProfile();
         saveProfile.setOnClickListener(v->{
-            nameEdt.setEnabled(false);
-            emailEdt.setEnabled(false);
-            mobileEdt.setEnabled(false);
-            saveProfile.setAlpha(0.3f);
-            saveProfile.setEnabled(false);
+            editProfile();
         });
     }
 
@@ -66,6 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
                             String name = jsonObject.getString("name");
                             String email = jsonObject.getString("email");
                             String mobile = jsonObject.getString("mobile");
+                            if(mobile=="null"){
+                                mobile = "";
+                            }
                             nameEdt.setText(name);
                             emailEdt.setText(email);
                             mobileEdt.setText(mobile);
@@ -105,5 +104,51 @@ public class ProfileActivity extends AppCompatActivity {
             default:
                 return false;
         }
+    }
+
+    private void editProfile(){
+        ConstantMethod.showProgressBar(this);
+        String userToken = ConstantMethod.getStringPreference("user_token",this);
+        String editProfileUrl = USER_PROFILE+userToken;
+        String edtNameStr = nameEdt.getText().toString().trim();
+        String edtEmailStr = emailEdt.getText().toString().trim();
+        String edtMobileStr = mobileEdt.getText().toString().trim();
+//        String edtPasswordStr = p.getText().toString().trim();
+        AndroidNetworking
+                .post(editProfileUrl)
+                .addBodyParameter("name",edtNameStr)
+                .addBodyParameter("mobile",edtMobileStr)
+                .addBodyParameter("email",edtEmailStr)
+                .addBodyParameter("password","")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            ConstantMethod.dismissDialog();
+                            String status = response.getString("result");
+                            if(status.equals("true")){
+                                nameEdt.setEnabled(false);
+                                emailEdt.setEnabled(false);
+                                mobileEdt.setEnabled(false);
+                                saveProfile.setAlpha(0.3f);
+                                saveProfile.setEnabled(false);
+                                Toast.makeText(ProfileActivity.this, "Profile changed!", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(ProfileActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        ConstantMethod.dismissDialog();
+                        Toast.makeText(ProfileActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

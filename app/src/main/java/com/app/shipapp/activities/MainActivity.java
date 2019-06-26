@@ -1,9 +1,7 @@
 package com.app.shipapp.activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,23 +30,34 @@ import java.util.List;
 import static com.app.shipapp.app_utils.AppAPis.SEARCH_SHIP_LIST;
 import static com.app.shipapp.app_utils.AppAPis.SHIP_LIST;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements SearchShipAdapter.CrossClick {
     private RecyclerView shipLsit;
-    private EditText searchEdt;
+    private EditText shipSedt,imoSedt,callSedt,mmsiSedt;
     private ImageView searchImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         shipLsit = findViewById(R.id.ship_list);
-        searchEdt = findViewById(R.id.searc_edt);
+        shipSedt = findViewById(R.id.ship_sedt);
+        imoSedt = findViewById(R.id.imo_sedt);
+        callSedt = findViewById(R.id.call_sedt);
+        mmsiSedt = findViewById(R.id.mmsi_sedt);
         searchImg = findViewById(R.id.search_img);
         shipLsit.setLayoutManager(new LinearLayoutManager(this));
         getShipDetailsList();
         searchImg.setOnClickListener(v->{
-            String shipName = searchEdt.getText().toString();
-            searchShip(shipName);
+            String shipName = shipSedt.getText().toString();
+            String imoName = imoSedt.getText().toString();
+            String callSname = callSedt.getText().toString();
+            String mmsiName = mmsiSedt.getText().toString();
+            String []strings = {shipName,imoName,callSname,mmsiName};
+            searchShip(strings);
         });
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main;
     }
 
     private void getShipDetailsList(){
@@ -74,15 +83,17 @@ public class MainActivity extends AppCompatActivity {
                                 String imoNo = childObj.getString("imo_number");
                                 String mmsi = childObj.getString("mmsi");
                                 String callSign = childObj.getString("call_sign");
+                                String shipId = childObj.getString("id");
                                 SearchModal searchModal = new SearchModal();
                                 searchModal.setShipName(name);
                                 searchModal.setCost(cost);
                                 searchModal.setImoNumber(imoNo);
                                 searchModal.setMmsi(mmsi);
                                 searchModal.setCallSign(callSign);
+                                searchModal.setId(Integer.parseInt(shipId));
                                 searchModals.add(searchModal);
                             }
-                            SearchShipAdapter searchShipAdapter = new SearchShipAdapter(MainActivity.this,searchModals,"search");
+                            SearchShipAdapter searchShipAdapter = new SearchShipAdapter(MainActivity.this,searchModals,"search",MainActivity.this);
                             shipLsit.setAdapter(searchShipAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -97,14 +108,17 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void searchShip(String shipName){
+    private void searchShip(String []shipName){
         ConstantMethod.showProgressBar(this);
         List<SearchModal> searchModals = new ArrayList<>();
         String userToken = ConstantMethod.getStringPreference("user_token",this);
         String searchShipListUrl = SEARCH_SHIP_LIST+userToken;
         AndroidNetworking
                 .post(searchShipListUrl)
-                .addBodyParameter("ship_name",shipName)
+                .addBodyParameter("ship_name",shipName[0])
+                .addBodyParameter("imo_number",shipName[1])
+                .addBodyParameter("call_sign",shipName[2])
+                .addBodyParameter("mmsi",shipName[3])
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -129,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                                 searchModal.setCallSign(callSign);
                                 searchModals.add(searchModal);
                             }
-                            SearchShipAdapter searchShipAdapter = new SearchShipAdapter(MainActivity.this,searchModals,"search");
+                            SearchShipAdapter searchShipAdapter = new SearchShipAdapter(MainActivity.this,searchModals,"search",MainActivity.this);
                             shipLsit.setAdapter(searchShipAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -158,10 +172,19 @@ public class MainActivity extends AppCompatActivity {
                 logoutDialog();
                 return true;
             case R.id.my_cart:
-                startActivity(new Intent(this,CartActivity.class));
+                List<SearchModal> searchModals = ConstantMethod.getArrayList(this);
+                if(searchModals.size()!=0){
+                    startActivity(new Intent(this, CartActivity.class));
+                }
+                else {
+                    Toast.makeText(this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                }
                 return true;    
             case R.id.profile:
                 startActivity(new Intent(this,ProfileActivity.class));
+                return true;
+            case R.id.myorders:
+                startActivity(new Intent(this,MyOrdersActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -174,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage("Do you want to logout?");
         builder.setPositiveButton("Ok",(dialog,which)->{
             ConstantMethod.setStringPreference("login_status","logout",this);
+            ConstantMethod.emptyCart(this);
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
             finish();
@@ -182,4 +206,14 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    public void onClick(int position) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 }

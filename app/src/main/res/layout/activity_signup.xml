@@ -10,45 +10,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:src="@drawable/app_logo"/>
+
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/name_edt"
+            android:background="@drawable/rect_view"
             android:hint="Name"
             android:inputType="text"
-            android:padding="5dp"/>
+            android:paddingLeft="10dp"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/email_edt"
             android:hint="Email"
+            android:background="@drawable/rect_view"
             android:inputType="textEmailAddress"
-            android:padding="5dp"/>
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/pass_edt"
             android:hint="Password"
-            android:inputType="textPassword"/>
+            android:background="@drawable/rect_view"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/cnfrn_pass_edt"
-            android:hint="Password"
-            android:inputType="textPassword"/>
+            android:hint="Confirm Password"
+            android:background="@drawable/rect_view"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"/>
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="Signup"
-            android:id="@+id/signup_btn"/>
+            android:id="@+id/signup_btn"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="10dp"
+            android:textColor="#ffffff"/>
     </LinearLayout>
 
 </RelativeLayout>

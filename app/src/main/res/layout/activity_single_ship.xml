@@ -3,54 +3,81 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/ship_name"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ship Name"/>
-    </android.support.design.widget.TextInputLayout>
+            android:textColorHint="#f24444">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/ship_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ship Name"
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:textColorHint="#f24444"
+                android:enabled="false"/>
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/imo_num"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Imo Number"/>
-    </android.support.design.widget.TextInputLayout>
+            android:textColorHint="#f24444">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/imo_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Imo Number"
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:enabled="false"/>
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/call_sign"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Call Sign"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/mmsi"
+            android:textColorHint="#f24444">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/call_sign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Call Sign"
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:enabled="false"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="MMSI"/>
-    </android.support.design.widget.TextInputLayout>
+            android:textColorHint="#f24444">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/mmsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="MMSI"
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:enabled="false"/>
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/cost"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cost"/>
-    </android.support.design.widget.TextInputLayout>
+            android:textColorHint="#f24444">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cost"
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:enabled="false"/>
+        </android.support.design.widget.TextInputLayout>
 
+    </LinearLayout>
 
 </LinearLayout>

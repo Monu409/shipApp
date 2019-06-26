@@ -5,13 +5,27 @@
     android:orientation="vertical"
     android:weightSum="10">
 
-    <android.support.v7.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
-        android:id="@+id/cart_list">
+        android:layout_weight="8">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cart_list">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your cart is empty"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:id="@+id/cart_status"/>
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,12 +62,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/proceed_to_chkout"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
         android:layout_weight="1">
 
         <Button
             android:id="@+id/proceed_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
             android:layout_centerInParent="true"
             android:text="Proceed"
             android:textColor="#ffffff"

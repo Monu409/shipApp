@@ -6,20 +6,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
 import com.app.shipapp.R;
 import com.app.shipapp.app_utils.ConstantMethod;
 import com.app.shipapp.modals.SearchModal;
-
 import java.util.List;
 
-public class SingleShipActivity extends AppCompatActivity {
+public class SingleShipActivity extends BaseActivity {
     private TextInputEditText shipName,imoNum,callSign,mmsi,cost;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_ship);
-        List<SearchModal> searchModals = ConstantMethod.getUsers(this);
+        ConstantMethod.setBackAndTitle(this,"Ship Details");
+        List<SearchModal> searchModals = ConstantMethod.getArrayList(this);
         Log.e("cart is",""+searchModals);
         shipName = findViewById(R.id.ship_name);
         imoNum = findViewById(R.id.imo_num);
@@ -34,5 +32,10 @@ public class SingleShipActivity extends AppCompatActivity {
         callSign.setText(searchModal.getCallSign());
         mmsi.setText(searchModal.getMmsi());
         cost.setText(searchModal.getCost());
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_single_ship;
     }
 }
